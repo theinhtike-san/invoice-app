@@ -47,7 +47,7 @@ const products = [
         price: 900,
     },
     {
-        id: 8,
+        id: 9,
         name: "Education Services",
         price: 500,
     },

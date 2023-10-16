@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice App</title>
+    <link rel="stylesheet" href="../dist/output.css" />
+
+</head>
+
+<body class="w-full">
+    <main id="app" class="relative w-full  bg-slate-700/40 h-fit">
+        <div class="relative  lg:w-[60%] md:w-[80%] w-full mx-auto  py-3  bg-white md:px-12 px-5  h-screen">
+            <img class="bg-contain bg-center absolute z-0  top-0 left-0 md:h-[32%] h-[35%] w-full"
+                src="./src/img/preview-page0.jpg" alt="">
+            <div class="relative">
+                <header class=" mx-auto py-3 mb-16 ">
+                    <div class="flex justify-between mb-3">
+                        <div class="">
+                            <h1
+                                class="font-bold font-roboto text-4xl leading-9 text-white border-b-2 border-secondary-500">
+                                MMS</h1>
+                            <p class=" font-body text-sm text-slate-200 pt-0 ">IT SERVICES</p>
+                        </div>
+                        <div>
+                            <h1 class="font-bold font-roboto text-3xl leading-9 text-white">INVOICE</h1>
+                            <p class=" font-body text-md text-secondary-500  ">NO:#<span
+                                    class="invoice0">0000000</span><span class="invoice-no"></span></p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-5">
+                        <div class="">
+                            <h1 class="text-md font-bold text-white">BILL TO</h1>
+                            <p class="text-sm text-slate-200">Larry Peterson, 123, Street,City, +1 123456789</p>
+                        </div>
+                        <div class="">
+                            <h1 class="text-md font-bold text-white">BILL FROM</h1>
+                            <p class="text-sm from-address text-slate-200">Andarson, 123, Street,City, +1 123456789</p>
+                        </div>
+                        <div class="">
+                            <h1 class="text-md font-bold text-white">DATE</h1>
+                            <p class="text-sm date text-slate-200"></p>
+                        </div>
+                    </div>
+
+                </header>
+                <div class="w-full mx-auto r">
+                    <form id="addRecord" class="mb-5 print:hidden" action="">
+                        <div class="grid gap-3 md:grid-cols-3 sm:grid-cols-1">
+                            <select class="border-2 border-blue-600 w-full block p-3 rounded-md " name="product_id"
+                                id="">
+                                <option value="default" default="true">Select Service</option>
+                            </select>
+                            <input class="border-2 border-blue-600 w-full block p-3 rounded-md" type="number"
+                                name="quantity" placeholder="Quantity" value="1" />
+                            <button
+                                class="border-2 border-blue-900 rounded-md bg-blue-900 hover:bg-blue-500 duration-800 text-white font-bold w-full block p-3 b">
+                                Add Record
+                            </button>
+                        </div>
+                    </form>
+                    <table id="slip" class="w-full mb-5 print:mb-3 print:mx-auto   ">
+                        <thead class="bg-neutral-600 text-white">
+                            <tr class="odd:bg-slate-400 even:bg-white">
+                                <th class="p-3">#</th>
+                                <th class="p-3 text-start w-fit">Product</th>
+                                <th class="p-3 text-end">Price</th>
+                                <th class="p-3 text-end">Quantity</th>
+                                <th class="p-3 text-end">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordList">
+                            <tr class="hidden last:table-row even:bg-slate-400 ">
+                                <td class="text-center p-1 bg-blue-100/20" colspan="5">
+                                    There is no record
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot class="border-spacing-10 border-b-2 border-dashed pb-10">
+                            <tr class="mt-5  font-bold text-blue-900">
+                                <td class="pt-3 space-y-3 pb-3   " colspan="2" rowspan="3">
+                                    <h1>PAYMENT INFO</h1>
+                                    <div>
+                                        <h6 class="text-sm ">Account:</h6>
+                                        <h6 class="text-sm ">Name:</h6>
+                                        <h6 class="text-sm ">Details:</h6>
+                                    </div>
+
+                                </td>
+
+                                <td class="pt-3  text-end " colspan="2">SUBTOTAL:</td>
+                                <td id="costTotal" class="pt-3 pr-2 text-end  ">0</td>
+                            </tr>
+                            <tr class=" font-bold text-blue-900">
+                                <td class="pt-3 text-end " colspan="2">
+                                    TAX(5%):
+                                </td>
+                                <td id="tax" class="pt-3 pr-2 text-end  ">
+                                    0
+                                </td>
+                            </tr>
+                            <tr class="text-end  font-bold text-blue-900 ">
+                                <td class="pt-3 text-end pb-5 " colspan="2">
+                                    TOTAL:
+                                </td>
+                                <td id="includeTax" class="pt-3 pr-2 text-end pb-3 ">
+                                    0
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div>
+                        <h1 class="text-md text-blue-800 font-roboto text-center tracking-wider hidden print:block">
+                            Thanks for choosing us</h1>
+                    </div>
+                    <div class="print:hidden  bottom-10 right-12 text-end">
+                        <button id="manageProduct"
+                            class="px-4 py-2 border-2 border-blue-900 bg-blue-900 rounded-md text-white font-bold hover:bg-blue-500  duration-800 mr-3">Manage
+                            product</button>
+                        <button id="printBtn"
+                            class="px-5 py-2 border-2 border-slate-600 bg-slate-900 rounded-md text-white font-bold hover:bg-transparent hover:text-blue-500 duration-300">Print</button>
+                    </div>
+
+                    <!-- product box -->
+                    <div id="manageProductBox"
+                        class=" fixed top-0 right-0 translate-x-full py-3 px-5 w-[90%] lg:w-[40%] md:w-1/2  bg-slate-100 h-screen shadow-2xl">
+
+                        <div id="manageProductBox1" class="">
+                            <div class="mb-3">
+                                <div class="flex justify-between items-center">
+                                    <h1 class="text-2xl font-bold text-black">Manage Inventory</h1>
+                                    <button id="closeManageProductBox"
+                                        class="text-3xl font-bold  border-slate-800 px-2 flex items-center"><svg
+                                            xmlns="http://www.w3.org/2000/svg" height="1em"
+                                            viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                            <path
+                                                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                        </svg></button>
+                                </div>
+                                <span class="text-blue-900">Available items</span>
+                            </div>
+                            <div class="h-[500px] overflow-scroll">
+                                <ul id="serviceList" class="space-y-2 mb-5 ">
+
+                                </ul>
+                            </div>
+                            <form action="" id="productAddForm">
+                                <div class="space-y-2 w-full bg-slate-200 p-2 ">
+                                    <input id="newProductName" class=" w-full border-2 border-slate-900 px-3 py-1 "
+                                        type="text" placeholder="New Item Name" required>
+                                    <div class="grid lg:grid-cols-2 gap-2 grid-cols-1 justify-between w-full">
+                                        <input id="newProductPrice"
+                                            class="w-full sm:max-lg:w-full border-2 border-slate-900 px-3 py-1 "
+                                            type="number" placeholder="Price" required>
+                                        <button id="newProductAddBtn"
+                                            class="px-2 flex justify-center py-1 border-2 border-slate-900 bg-slate-900 rounded-md text-white font-bold hover:bg-transparent hover:text-blue-500 duration-300 text-sm">Add
+                                            Now</button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+        </div>
+    </main>
+    <script src="./src/js/invoice.js"></script>
+</body>
+
+</html>
